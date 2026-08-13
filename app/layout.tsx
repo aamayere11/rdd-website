@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
-
+import BootstrapClient from "../components/layout/BootstrapClient";
+import TopBar from "../components/layout/TopBar";
+import Navbar from "../components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -18,12 +22,26 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
-  return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+  return (<html
+  lang="en"
+  data-scroll-behavior="smooth"
+  className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+   <body className={`${geistSans.variable} ${geistMono.variable} min-h-full d-flex flex-column`}>
+  <BootstrapClient />
+
+  <header className="fixed-header">
+  <TopBar />
+  <Navbar />
+</header>
+
+<main className="flex-grow-1">
+  {children}
+</main>
+
+<Footer />
+</body>
     </html>
   );
 }
