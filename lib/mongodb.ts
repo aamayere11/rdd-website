@@ -11,7 +11,6 @@ const options = {
   serverSelectionTimeoutMS: 15000,
   connectTimeoutMS: 15000,
   tls: true,
-  tlsAllowInvalidCertificates: true,
 };
 
 let client: MongoClient;
@@ -26,16 +25,13 @@ declare global {
 if (process.env.NODE_ENV === "development") {
   if (!global._mongoClientPromise) {
     client = new MongoClient(uri, options);
-    global._mongoClientPromise =
-      client.connect();
+    global._mongoClientPromise = client.connect();
   }
 
-  clientPromise =
-    global._mongoClientPromise;
+  clientPromise = global._mongoClientPromise;
 } else {
   client = new MongoClient(uri, options);
-  clientPromise =
-    client.connect();
+  clientPromise = client.connect();
 }
 
 export default clientPromise;
